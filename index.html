@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>IT Learning Roadmap · Progress Tracker</title>
+  <style>
+    /* ---------- RESET & GLOBAL ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    }
+
+    :root {
+      --bg: #0b1219;
+      --surface: #131e28;
+      --surface-raised: #1c2b36;
+      --border: #2a3e4d;
+      --text: #e6edf3;
+      --text-muted: #8b9eb0;
+      --accent: #3e8fb0;
+      --accent-soft: #2a607a;
+      --success: #2e7d5e;
+      --danger: #b3413e;
+      --warning: #b47d2e;
+      --radius: 12px;
+      --shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+      --sidebar-width: 240px;
+      --nav-mobile-height: 64px;
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ---------- TYPOGRAPHY ---------- */
+    h1, h2, h3, h4 {
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: 0.5em;
+      color: #ffffff;
+    }
+
+    h1 { font-size: 1.8rem; }
+    h2 { font-size: 1.4rem; }
+    h3 { font-size: 1.15rem; }
+    h4 { font-size: 1rem; }
+
+    p { margin-bottom: 0.75rem; }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover { text-decoration: underline; }
+
+    /* ---------- LAYOUT ---------- */
+    .app {
+      display: flex;
+      flex: 1;
+    }
+
+    /* Sidebar (desktop) */
+    .sidebar {
+      width: var(--sidebar-width);
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      padding: 1.5rem 0.75rem;
+      display: flex;
+      flex-direction: column;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .sidebar-brand {
+      padding: 0 0.75rem 1.5rem 0.75rem;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--accent);
+      letter-spacing: 0.3px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 1rem;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.7rem 0.75rem;
+      border-radius: 8px;
+      color: var(--text-muted);
+      font-weight: 500;
+      transition: background 0.15s, color 0.15s;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      width: 100%;
+      text-align: left;
+      font-size: 0.95rem;
+    }
+
+    .nav-item:hover {
+      background: var(--surface-raised);
+      color: var(--text);
+    }
+
+    .nav-item.active {
+      background: var(--accent-soft);
+      color: white;
+    }
+
+    .nav-icon {
+      width: 20px;
+      text-align: center;
+      font-size: 1.1rem;
+    }
+
+    /* Main content */
+    .main {
+      flex: 1;
+      padding: 1.5rem 2rem 3rem 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* Bottom nav (mobile) */
+    .bottom-nav {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: var(--nav-mobile-height);
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      z-index: 100;
+      justify-content: space-around;
+      align-items: center;
+      padding: 0 0.25rem;
+    }
+
+    .bottom-nav .nav-item {
+      flex-direction: column;
+      gap: 0.2rem;
+      padding: 0.4rem 0.2rem;
+      font-size: 0.65rem;
+      justify-content: center;
+      text-align: center;
+      border-radius: 6px;
+    }
+
+    .bottom-nav .nav-icon {
+      font-size: 1.3rem;
+    }
+
+    /* ---------- CARDS & CONTAINERS ---------- */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 0.75rem;
+    }
+
+    /* ---------- PROGRESS BARS ---------- */
+    .progress-bar-bg {
+      background: #1e2e3a;
+      border-radius: 20px;
+      height: 12px;
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 20px;
+      width: 0%;
+      transition: width 0.25s ease;
+    }
+
+    .progress-text {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    /* ---------- BADGES ---------- */
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: var(--surface-raised);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+
+    .badge-accent { background: var(--accent-soft); color: white; border-color: var(--accent); }
+    .badge-success { background: var(--success); color: white; border-color: var(--success); }
+
+    /* ---------- FORMS ---------- */
+    label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+      color: var(--text-muted);
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 0.6rem 0.75rem;
+      background: #0e1a22;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 0.95rem;
+      margin-bottom: 0.75rem;
+      transition: border 0.15s;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: 2px solid var(--accent);
+      border-color: transparent;
+    }
+
+    textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .form-row > * {
+      flex: 1 1 140px;
+    }
+
+    /* ---------- BUTTONS ---------- */
+    button, .btn {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: opacity 0.15s, transform 0.1s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      line-height: 1.2;
+      font-family: inherit;
+    }
+
+    button:hover, .btn:hover { opacity: 0.9; }
+    button:active, .btn:active { transform: scale(0.98); }
+
+    button.secondary, .btn.secondary {
+      background: var(--surface-raised);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    button.danger, .btn.danger {
+      background: var(--danger);
+    }
+
+    button.small, .btn.small {
+      padding: 0.35rem 0.75rem;
+      font-size: 0.8rem;
+    }
+
+    button.icon-only, .btn.icon-only {
+      padding: 0.4rem 0.6rem;
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+
+    button.icon-only:hover, .btn.icon-only:hover {
+      background: var(--surface-raised);
+      color: var(--text);
+    }
+
+    /* ---------- TABLES ---------- */
+    .table-wrap {
+      overflow-x: auto;
+      margin: 0 -0.25rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      min-width: 600px;
+    }
+
+    th {
+      text-align: left;
+      padding: 0.6rem 0.5rem;
+      border-bottom: 2px solid var(--border);
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    td {
+      padding: 0.6rem 0.5rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    /* ---------- COLLAPSIBLE ---------- */
+    .collapsible-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+      padding: 0.6rem 0;
+    }
+
+    .collapsible-header .chevron {
+      transition: transform 0.2s;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .collapsible-header.open .chevron {
+      transform: rotate(90deg);
+    }
+
+    .collapsible-content {
+      display: none;
+    }
+
+    .collapsible-content.open {
+      display: block;
+    }
+
+    /* ---------- MISC ---------- */
+    .flex-between {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .flex-start {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .text-muted { color: var(--text-muted); }
+    .text-small { font-size: 0.8rem; }
+    .text-center { text-align: center; }
+    .mt-1 { margin-top: 0.5rem; }
+    .mt-2 { margin-top: 1rem; }
+    .mb-1 { margin-bottom: 0.5rem; }
+    .mb-2 { margin-bottom: 1rem; }
+    .w-100 { width: 100%; }
+    .hidden { display: none !important; }
+
+    .stat-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: white;
+      line-height: 1.1;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .week-card {
+      border-left: 4px solid var(--accent);
+    }
+
+    .week-milestone {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding: 0.4rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .week-milestone:last-child { border-bottom: none; }
+
+    .week-milestone input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      accent-color: var(--accent);
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .lab-note-area {
+      margin-top: 0.4rem;
+      width: 100%;
+    }
+
+    .lab-note-area textarea {
+      font-size: 0.8rem;
+      min-height: 50px;
+    }
+
+    /* ---------- SCROLLBAR ---------- */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: var(--surface); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #3a5468; }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 860px) {
+      .sidebar { display: none; }
+      .bottom-nav { display: flex; }
+      .main {
+        padding: 1rem 1rem calc(var(--nav-mobile-height) + 1rem) 1rem;
+      }
+      h1 { font-size: 1.4rem; }
+      .stat-value { font-size: 1.4rem; }
+    }
+
+    @media (min-width: 861px) {
+      .bottom-nav { display: none !important; }
+      .sidebar { display: flex; }
+    }
+
+    /* Print-friendly (bonus) */
+    @media print {
+      .sidebar, .bottom-nav, button { display: none !important; }
+      body { background: white; color: black; }
+      .card { border: 1px solid #ccc; background: white; }
+      .main { padding: 0; }
+    }
+
+    /* Utility for focus visibility */
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- ========== SIDEBAR (DESKTOP) ========== -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-brand">IT Roadmap</div>
+      <nav aria-label="Main navigation">
+        <button class="nav-item active" data-page="dashboard" onclick="navigate('dashboard')">
+          <span class="nav-icon">📊</span> Dashboard
+        </button>
+        <button class="nav-item" data-page="roadmap" onclick="navigate('roadmap')">
+          <span class="nav-icon">🗺️</span> Roadmap
+        </button>
+        <button class="nav-item" data-page="recorder" onclick="navigate('recorder')">
+          <span class="nav-icon">⏱️</span> Study Recorder
+        </button>
+        <button class="nav-item" data-page="labs" onclick="navigate('labs')">
+          <span class="nav-icon">🧪</span> Practical Labs
+        </button>
+        <button class="nav-item" data-page="notes" onclick="navigate('notes')">
+          <span class="nav-icon">📝</span> Notes
+        </button>
+        <button class="nav-item" data-page="backup" onclick="navigate('backup')">
+          <span class="nav-icon">💾</span> Reports & Backup
+        </button>
+        <button class="nav-item" data-page="settings" onclick="navigate('settings')">
+          <span class="nav-icon">⚙️</span> Settings
+        </button>
+      </nav>
+      <div style="margin-top: auto; padding: 1rem 0.75rem; font-size: 0.7rem; color: var(--text-muted); border-top: 1px solid var(--border);">
+        All data saved locally.<br>Back up regularly.
+      </div>
+    </aside>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main class="main" id="mainContent">
+      <!-- Pages injected by JS -->
+      <div id="page-container"></div>
+    </main>
+  </div>
+
+  <!-- ========== BOTTOM NAV (MOBILE) ========== -->
+  <nav class="bottom-nav" aria-label="Mobile navigation">
+    <button class="nav-item active" data-page="dashboard" onclick="navigate('dashboard')">
+      <span class="nav-icon">📊</span> Dash
+    </button>
+    <button class="nav-item" data-page="roadmap" onclick="navigate('roadmap')">
+      <span class="nav-icon">🗺️</span> Roadmap
+    </button>
+    <button class="nav-item" data-page="recorder" onclick="navigate('recorder')">
+      <span class="nav-icon">⏱️</span> Record
+    </button>
+    <button class="nav-item" data-page="labs" onclick="navigate('labs')">
+      <span class="nav-icon">🧪</span> Labs
+    </button>
+    <button class="nav-item" data-page="notes" onclick="navigate('notes')">
+      <span class="nav-icon">📝</span> Notes
+    </button>
+    <button class="nav-item" data-page="backup" onclick="navigate('backup')">
+      <span class="nav-icon">💾</span> Backup
+    </button>
+    <button class="nav-item" data-page="settings" onclick="navigate('settings')">
+      <span class="nav-icon">⚙️</span> Settings
+    </button>
+  </nav>
+
+  <script>
+    /* ============================================================
+       DATA MODEL & INITIALIZATION
+       ============================================================ */
+
+    const STORAGE_KEY = 'it_roadmap_v1';
+
+    // --- Complete roadmap definition (10 weeks) ---
+    const ROADMAP = [
+      {
+        week: 1,
+        title: 'Network+ fundamentals I',
+        videoHours: 14.5,
+        topics: 'Network types, topologies, network devices, OSI model, TCP/IP, Ethernet, MAC addresses, IPv4, IPv6, common protocols and ports.',
+        milestones: [
+          'Explain OSI layers.',
+          'Distinguish routers and switches.',
+          'Identify common protocols and ports.',
+          'Explain IPv4 and IPv6.',
+          'Draw a basic network.'
+        ],
+        lab: 'Inspect IP configuration, gateway, MAC address, and DNS.',
+        days: { sunday: 'learning', monday: 'learning', tuesday: 'learning', wednesday: 'learning', thursday: 'learning', friday: 'rest', saturday: 'review' }
+      },
+      {
+        week: 2,
+        title: 'Network+ fundamentals II',
+        videoHours: 14.5,
+        topics: 'Subnetting, CIDR, VLANs, switching, routing, NAT, DHCP, DNS, wireless networking, troubleshooting.',
+        milestones: [
+          'Calculate basic IPv4 subnets.',
+          'Explain subnet masks and CIDR.',
+          'Explain DHCP DORA.',
+          'Explain DNS resolution.',
+          'Understand VLANs and routing.',
+          'Troubleshoot connectivity.'
+        ],
+        lab: 'ipconfig, ping, tracert, nslookup, arp, route.',
+        days: { sunday: 'learning', monday: 'learning', tuesday: 'learning', wednesday: 'learning', thursday: 'learning', friday: 'rest', saturday: 'review' }
+      },
+      {
+        week: 3,
+        title: 'Windows 10 Client Administration',
+        videoHours: null,
+        topics: 'Windows 10 editions, installation, updates, recovery, users, groups, UAC, NTFS permissions, services, processes, drivers, Event Viewer, Defender, Firewall, PowerShell, Disk Management.',
+        milestones: [
+          'Create and manage users.',
+          'Configure NTFS permissions.',
+          'Manage Windows services.',
+          'Inspect Event Viewer.',
+          'Configure Firewall.',
+          'Use PowerShell for system inspection.',
+          'Diagnose a basic performance issue.'
+        ],
+        lab: 'Configure users, permissions, shared folders, services, and logs.',
+        days: { sunday: 'learning', monday: 'learning', tuesday: 'learning', wednesday: 'learning', thursday: 'learning', friday: 'rest', saturday: 'review' }
+      },
+      {
+        week: 4,
+        title: 'LPIC-1 foundations',
+        videoHours: 15,
+        topics: 'Linux architecture, distributions, shell, filesystem hierarchy, file operations, grep, sed, awk, pipes, redirection, archives, users, groups, permissions, sudo.',
+        milestones: [
+          'Navigate Linux filesystem.',
+          'Understand paths.',
+          'Use pipes and redirection.',
+          'Process text files.',
+          'Manage users and groups.',
+          'Configure ownership and permissions.',
+          'Explain filesystem hierarchy.'
+        ],
+        lab: 'Create directories, configure permissions, and archive files.',
+        days: { sunday: 'learning', monday: 'learning', tuesday: 'learning', wednesday: 'learning', thursday: 'learning', friday: 'rest', saturday: 'review' }
+      },
+      {
+        week: 5,
+        title: 'LPIC-1 administration',
+        videoHours: 15,
+        topics: 'Processes, signals, jobs, package management, partitions, filesystems, mounting, swap, boot, systemd, logs, networking, DNS, Bash scripting.',
+        milestones: [
+          'Manage processes.',
+          'Install and update packages.',
+          'Understand partitions and mounting.',
+          'Manage systemd services.',
+          'Inspect logs.',
+          'Configure basic networking.',
+          'Write a simple Bash script.'
+        ],
+        lab: 'Create a system information and disk usage Bash script.',
+        days: { sunday: 'learning', monday: 'learning', tuesday: 'learning', wednesday: 'learning', thursday: 'learning', friday: 'rest', saturday: 'review' }
+      },
+      {
+        week: 6,
+        title: 'Windows Server foundations',
+        videoHours: 16,
+        topics: 'Installation, Server Manager, roles, features, Active Directory, domains, forests, trees, Domain Controllers, OUs, users, groups, domain joining.',
+        milestones: [
+          'Install Windows Server in a VM.',
+          'Understand server roles.',
+          'Explain Active Directory architecture.',
+          'Create a domain and Domain Controller.',
+          'Create OUs, users, and groups.',
+          'Join Windows 10 to a domain.'
+        ],
+        lab: 'Build a domain with one Windows Server VM and one Windows 10 client.',
+        days: { sunday: 'learning', monday: 'learning', tuesday: 'learning', wednesday: 'learning', thursday: 'learning', friday: 'rest', saturday: 'review' }
+      },
+      {
+        week: 7,
+        title: 'Windows Server services and policies',
+        videoHours: 16,
+        topics: 'DNS, DHCP, Group Policy, SMB, file services, share permissions, NTFS permissions, remote administration, updates, backup, monitoring, security.',
+        milestones: [
+          'Configure DNS.',
+          'Configure DHCP.',
+          'Create and link GPOs.',
+          'Apply policies to a test client.',
+          'Configure file sharing.',
+          'Manage a server remotely.',
+          'Understand backup and recovery.'
+        ],
+        lab: 'Configure DNS, DHCP, GPO, and shared folders.',
+        days: { sunday: 'learning', monday: 'learning', tuesday: 'learning', wednesday: 'learning', thursday: 'learning', friday: 'rest', saturday: 'review' }
+      },
+      {
+        week: 8,
+        title: 'Windows Server integration',
+        videoHours: 15,
+        topics: 'Remaining MCSA course content, authentication, troubleshooting DNS/DHCP/GPO, storage, backup, auditing, monitoring, hardening, client-server integration.',
+        milestones: [
+          'Troubleshoot domain authentication.',
+          'Diagnose DNS and DHCP issues.',
+          'Troubleshoot GPO application.',
+          'Configure and verify backups.',
+          'Apply basic server hardening.',
+          'Demonstrate a working domain.'
+        ],
+        lab: 'Complete a small business Windows domain environment.',
+        days: { sunday: 'learning', monday: 'learning', tuesday: 'learning', wednesday: 'learning', thursday: 'learning', friday: 'rest', saturday: 'review' }
+      },
+      {
+        week: 9,
+        title: 'CEH foundations',
+        videoHours: 8.5,
+        topics: 'Ethical hacking, authorization, scope, rules of engagement, reconnaissance, host discovery, scanning, enumeration, vulnerability assessment, CVE, CVSS, remediation.',
+        milestones: [
+          'Explain ethical hacking phases.',
+          'Define authorization and scope.',
+          'Understand reconnaissance.',
+          'Identify ports and services.',
+          'Understand CVE and CVSS.',
+          'Explain vulnerability remediation.'
+        ],
+        lab: 'Scan only authorized isolated lab machines and document findings.',
+        days: { sunday: 'learning', monday: 'learning', tuesday: 'learning', wednesday: 'learning', thursday: 'learning', friday: 'rest', saturday: 'review' }
+      },
+      {
+        week: 10,
+        title: 'CEH completion and integrated capstone',
+        videoHours: 8.5,
+        topics: 'Remaining CEH material, Wireshark, packet analysis, web security fundamentals, hardening, reporting, vulnerability prioritization.',
+        milestones: [
+          'Analyze packet captures.',
+          'Identify basic suspicious network behavior.',
+          'Explain common web vulnerabilities.',
+          'Recommend security improvements.',
+          'Write a vulnerability assessment report.',
+          'Complete an integrated capstone.'
+        ],
+        lab: 'Assess an isolated lab, map systems, inspect services, identify weaknesses, recommend fixes, and write a report.',
+        days: { sunday: 'learning', monday: 'learning', tuesday: 'learning', wednesday: 'learning', thursday: 'learning', friday: 'rest', saturday: 'review' }
+      }
+    ];
+
+    // Default state
+    function defaultState() {
+      return {
+        // study entries: array of objects
+        entries: [],
+        // milestones: key = "w1-m0" -> { done: bool, date: iso, note: string }
+        milestones: {},
+        // lab notes: key = "w1-lab" -> { note: string, done: bool, date: iso }
+        labs: {},
+        // notes: general, weekly (w1..w10), course-specific, difficult concepts, questions
+        notes: {
+          general: '',
+          weeks: {},          // key "w1" -> string
+          courses: {},        // key course name -> string
+          labDocs: '',
+          difficult: '',
+          questions: ''
+        },
+        // settings
+        settings: {
+          startDate: '',
+          dailyTarget: '',
+          weeklyTarget: '',
+          activeWeek: 1,
+          paused: false,
+          extended: false
+        },
+        // meta
+        version: 1
+      };
+    }
+
+    let state = null;
+
+    // --- Load state safely ---
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) {
+          state = defaultState();
+          saveState();
+          return;
+        }
+        const parsed = JSON.parse(raw);
+        // Basic validation / merge with default to fill missing keys
+        const def = defaultState();
+        state = {
+          entries: Array.isArray(parsed.entries) ? parsed.entries : [],
+          milestones: (parsed.milestones && typeof parsed.milestones === 'object') ? parsed.milestones : {},
+          labs: (parsed.labs && typeof parsed.labs === 'object') ? parsed.labs : {},
+          notes: {
+            general: (parsed.notes && typeof parsed.notes.general === 'string') ? parsed.notes.general : '',
+            weeks: (parsed.notes && parsed.notes.weeks && typeof parsed.notes.weeks === 'object') ? parsed.notes.weeks : {},
+            courses: (parsed.notes && parsed.notes.courses && typeof parsed.notes.courses === 'object') ? parsed.notes.courses : {},
+            labDocs: (parsed.notes && typeof parsed.notes.labDocs === 'string') ? parsed.notes.labDocs : '',
+            difficult: (parsed.notes && typeof parsed.notes.difficult === 'string') ? parsed.notes.difficult : '',
+            questions: (parsed.notes && typeof parsed.notes.questions === 'string') ? parsed.notes.questions : ''
+          },
+          settings: Object.assign({}, def.settings, parsed.settings || {}),
+          version: parsed.version || 1
+        };
+        // Ensure settings fields exist
+        if (!state.settings.activeWeek || state.settings.activeWeek < 1 || state.settings.activeWeek > 10) {
+          state.settings.activeWeek = 1;
+        }
+      } catch (e) {
+        console.warn('Corrupted localStorage, starting fresh.', e);
+        state = defaultState();
+      }
+      saveState();
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch (e) {
+        console.error('Failed to save state', e);
+        alert('Could not save data. Storage may be full.');
+      }
+    }
+
+    /* ============================================================
+       HELPERS
+       ============================================================ */
+
+    function formatDate(iso) {
+      if (!iso) return '—';
+      try {
+        const d = new Date(iso);
+        return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+      } catch { return '—'; }
+    }
+
+    function todayISO() {
+      return new Date().toISOString().slice(0, 10);
+    }
+
+    function escapeHtml(str) {
+      if (typeof str !== 'string') return '';
+      return str.replace(/[&<>"]/g, function(m) {
+        if (m === '&') return '&amp;';
+        if (m === '<') return '&lt;';
+        if (m === '>') return '&gt;';
+        if (m === '"') return '&quot;';
+        return m;
+      });
+    }
+
+    function getMilestoneKey(w, mIdx) {
+      return `w${w}-m${mIdx}`;
+    }
+
+    function getLabKey(w) {
+      return `w${w}-lab`;
+    }
+
+    // Get total milestones across all weeks
+    function totalMilestones() {
+      return ROADMAP.reduce((sum, w) => sum + w.milestones.length, 0);
+    }
+
+    function completedMilestones() {
+      let count = 0;
+      ROADMAP.forEach(w => {
+        w.milestones.forEach((_, idx) => {
+          const key = getMilestoneKey(w.week, idx);
+          if (state.milestones[key] && state.milestones[key].done) count++;
+        });
+      });
+      return count;
+    }
+
+    function completedLabs() {
+      let count = 0;
+      ROADMAP.forEach(w => {
+        const key = getLabKey(w.week);
+        if (state.labs[key] && state.labs[key].done) count++;
+      });
+      return count;
+    }
+
+    function totalVideoHours() {
+      return 123; // fixed total per spec
+    }
+
+    function completedVideoHours() {
+      // We derive from milestone? No — video hours completed is a separate metric.
+      // We'll approximate by allowing the user to mark progress via milestone or a separate field?
+      // Spec says "Video hours completed" as a dashboard metric calculated from actual recorded data.
+      // The cleanest: let user record video activity in study sessions; sum durations where activity type is 'video'.
+      let total = 0;
+      state.entries.forEach(e => {
+        if (e.activity === 'video' && e.durationHours) {
+          total += e.durationHours;
+        }
+      });
+      return Math.min(total, totalVideoHours()); // cap at total
+    }
+
+    function studyHoursRecorded() {
+      let total = 0;
+      state.entries.forEach(e => {
+        total += e.durationHours || 0;
+      });
+      return Math.round(total * 10) / 10;
+    }
+
+    function labHoursRecorded() {
+      let total = 0;
+      state.entries.forEach(e => {
+        if (e.activity === 'lab') total += e.durationHours || 0;
+      });
+      return Math.round(total * 10) / 10;
+    }
+
+    function weeklyStudyTotals() {
+      // returns { week: hours }
+      const totals = {};
+      ROADMAP.forEach(w => totals[w.week] = 0);
+      state.entries.forEach(e => {
+        const wk = parseInt(e.week, 10);
+        if (totals[wk] !== undefined) {
+          totals[wk] += e.durationHours || 0;
+        }
+      });
+      return totals;
+    }
+
+    function currentWeek() {
+      return state.settings.activeWeek || 1;
+    }
+
+    function currentPhase() {
+      // Simplified: group weeks into phases
+      const w = currentWeek();
+      if (w <= 2) return 'Network+ Foundations';
+      if (w <= 3) return 'Windows Client Administration';
+      if (w <= 5) return 'LPIC-1 Linux';
+      if (w <= 8) return 'Windows Server (MCSA)';
+      if (w <= 10) return 'CEH / Cybersecurity';
+      return '—';
+    }
+
+    function overallCompletionPercent() {
+      const total = totalMilestones() + ROADMAP.length; // milestones + labs
+      if (total === 0) return 0;
+      const done = completedMilestones() + completedLabs();
+      return Math.round((done / total) * 100);
+    }
+
+    /* ============================================================
+       NAVIGATION & PAGE RENDERING
+       ============================================================ */
+
+    let currentPage = 'dashboard';
+
+    function navigate(page) {
+      currentPage = page;
+      // Update active nav items
+      document.querySelectorAll('.nav-item').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.page === page);
+      });
+      renderPage();
+    }
+
+    function renderPage() {
+      const container = document.getElementById('page-container');
+      if (!container) return;
+
+      switch (currentPage) {
+        case 'dashboard': container.innerHTML = renderDashboard(); break;
+        case 'roadmap': container.innerHTML = renderRoadmap(); break;
+        case 'recorder': container.innerHTML = renderRecorder(); break;
+        case 'labs': container.innerHTML = renderLabs(); break;
+        case 'notes': container.innerHTML = renderNotes(); break;
+        case 'backup': container.innerHTML = renderBackup(); break;
+        case 'settings': container.innerHTML = renderSettings(); break;
+        default: container.innerHTML = renderDashboard();
+      }
+      // Re-attach event listeners after rendering (delegation approach used in HTML)
+    }
+
+    /* ============================================================
+       DASHBOARD
+       ============================================================ */
+
+    function renderDashboard() {
+      const pct = overallCompletionPercent();
+      const totalM = totalMilestones();
+      const doneM = completedMilestones();
+      const totalLabs = ROADMAP.length;
+      const doneLabs = completedLabs();
+      const vHoursTotal = totalVideoHours();
+      const vHoursDone = completedVideoHours();
+      const studyHrs = studyHoursRecorded();
+      const labHrs = labHoursRecorded();
+      const cw = currentWeek();
+      const phase = currentPhase();
+      const wkTotals = weeklyStudyTotals();
+      const maxWeekly = Math.max(1, ...Object.values(wkTotals));
+
+      return `
+        <h1>Dashboard</h1>
+        <p class="text-muted" style="margin-bottom:1.5rem;">Your overall learning progress at a glance.</p>
+
+        <!-- Stats grid -->
+        <div class="grid-4 mb-2">
+          <div class="card" style="padding:1rem;">
+            <div class="stat-label">Roadmap completion</div>
+            <div class="stat-value">${pct}%</div>
+            <div class="progress-bar-bg mt-1"><div class="progress-bar-fill" style="width:${pct}%;"></div></div>
+          </div>
+          <div class="card" style="padding:1rem;">
+            <div class="stat-label">Video hours completed</div>
+            <div class="stat-value">${vHoursDone.toFixed(1)} / ${vHoursTotal}</div>
+            <div class="progress-bar-bg mt-1"><div class="progress-bar-fill" style="width:${(vHoursDone/vHoursTotal)*100}%;"></div></div>
+          </div>
+          <div class="card" style="padding:1rem;">
+            <div class="stat-label">Study hours recorded</div>
+            <div class="stat-value">${studyHrs}h</div>
+            <div class="text-muted text-small">Lab hours: ${labHrs}h</div>
+          </div>
+          <div class="card" style="padding:1rem;">
+            <div class="stat-label">Milestones completed</div>
+            <div class="stat-value">${doneM} / ${totalM}</div>
+            <div class="text-muted text-small">Labs: ${doneLabs} / ${totalLabs}</div>
+          </div>
+        </div>
+
+        <div class="grid-2 mb-2">
+          <div class="card">
+            <div class="flex-between">
+              <h3>Current position</h3>
+              <span class="badge badge-accent">Week ${cw}</span>
+            </div>
+            <p class="mt-1"><strong>Phase:</strong> ${phase}</p>
+            <p><strong>Course:</strong> ${ROADMAP.find(w => w.week === cw)?.title || '—'}</p>
+            <p class="text-muted text-small">Friday is always a rest day.</p>
+          </div>
+          <div class="card">
+            <h3>Weekly study overview</h3>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Week</th><th>Hours</th></tr></thead>
+                <tbody>
+                  ${ROADMAP.map(w => `<tr><td>Week ${w.week}</td><td>${(wkTotals[w.week]||0).toFixed(1)} h</td></tr>`).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Course-by-course progress (milestones) -->
+        <div class="card">
+          <h3>Course progress (by milestones & labs)</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Week</th><th>Course</th><th>Milestones</th><th>Lab</th><th>Progress</th></tr></thead>
+              <tbody>
+                ${ROADMAP.map(w => {
+                  const totalM = w.milestones.length;
+                  let done = 0;
+                  w.milestones.forEach((_, idx) => {
+                    if (state.milestones[getMilestoneKey(w.week, idx)]?.done) done++;
+                  });
+                  const labDone = state.labs[getLabKey(w.week)]?.done ? 1 : 0;
+                  const totalItems = totalM + 1;
+                  const doneItems = done + labDone;
+                  const p = Math.round((doneItems / totalItems) * 100);
+                  return `<tr>
+                    <td>${w.week}</td>
+                    <td>${w.title}</td>
+                    <td>${done}/${totalM}</td>
+                    <td>${labDone ? '✅' : '—'}</td>
+                    <td><div class="progress-bar-bg" style="height:8px;"><div class="progress-bar-fill" style="width:${p}%;"></div></div></td>
+                  </tr>`;
+                }).join('')}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+    }
+
+    /* ============================================================
+       ROADMAP
+       ============================================================ */
+
+    function renderRoadmap() {
+      return `
+        <h1>Roadmap</h1>
+        <p class="text-muted mb-2">10 weeks · all topics, milestones, and labs. Check off milestones as you complete them.</p>
+
+        ${ROADMAP.map(w => {
+          const totalM = w.milestones.length;
+          let done = 0;
+          w.milestones.forEach((_, idx) => {
+            if (state.milestones[getMilestoneKey(w.week, idx)]?.done) done++;
+          });
+          const labDone = state.labs[getLabKey(w.week)]?.done || false;
+          const pctW = Math.round(((done + (labDone ? 1 : 0)) / (totalM + 1)) * 100);
+
+          return `
+            <div class="card week-card">
+              <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                <div class="flex-start">
+                  <span class="chevron">▶</span>
+                  <h3 style="margin:0;">Week ${w.week} — ${w.title}</h3>
+                </div>
+                <span class="badge">${pctW}%</span>
+              </div>
+              <div class="collapsible-content">
+                <p class="text-muted text-small">${w.topics}</p>
+                ${w.videoHours ? `<p class="text-small">Video hours: ${w.videoHours}</p>` : '<p class="text-small">Self-study week</p>'}
+
+                <h4 class="mt-1">Milestones</h4>
+                ${w.milestones.map((m, idx) => {
+                  const key = getMilestoneKey(w.week, idx);
+                  const ms = state.milestones[key] || { done: false, date: '', note: '' };
+                  return `
+                    <div class="week-milestone">
+                      <input type="checkbox" id="${key}" ${ms.done ? 'checked' : ''}
+                        onchange="updateMilestone('${key}', this.checked)">
+                      <div style="flex:1;">
+                        <label for="${key}" style="display:inline;font-size:0.9rem;color:var(--text);cursor:pointer;">${m}</label>
+                        ${ms.done ? `<span class="text-small text-muted" style="margin-left:0.5rem;">✓ ${formatDate(ms.date)}</span>` : ''}
+                        <input type="text" class="lab-note-area" placeholder="Optional note / evidence…" value="${escapeHtml(ms.note||'')}"
+                          onchange="updateMilestoneNote('${key}', this.value)" style="margin-top:0.3rem;font-size:0.8rem;">
+                      </div>
+                    </div>
+                  `;
+                }).join('')}
+
+                <h4 class="mt-2">Lab</h4>
+                <div class="week-milestone">
+                  <input type="checkbox" id="lab-${w.week}" ${labDone ? 'checked' : ''}
+                    onchange="updateLabDone(${w.week}, this.checked)">
+                  <div style="flex:1;">
+                    <label for="lab-${w.week}" style="display:inline;font-size:0.9rem;color:var(--text);cursor:pointer;">${w.lab}</label>
+                    ${state.labs[getLabKey(w.week)]?.done ? `<span class="text-small text-muted" style="margin-left:0.5rem;">✓ ${formatDate(state.labs[getLabKey(w.week)].date)}</span>` : ''}
+                    <div class="lab-note-area">
+                      <textarea placeholder="Lab notes: commands, screenshots description, errors, solutions…"
+                        onchange="updateLabNote(${w.week}, this.value)">${escapeHtml(state.labs[getLabKey(w.week)]?.note || '')}</textarea>
+                    </div>
+                  </div>
+                </div>
+
+                <h4 class="mt-2">Daily schedule</h4>
+                <div class="grid-3" style="gap:0.4rem;font-size:0.85rem;">
+                  <div>Sun: ${w.days.sunday}</div>
+                  <div>Mon: ${w.days.monday}</div>
+                  <div>Tue: ${w.days.tuesday}</div>
+                  <div>Wed: ${w.days.wednesday}</div>
+                  <div>Thu: ${w.days.thursday}</div>
+                  <div>Fri: <span class="badge" style="background:var(--warning);color:black;">Rest</span></div>
+                  <div>Sat: ${w.days.saturday}</div>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('')}
+      `;
+    }
+
+    function toggleCollapsible(headerEl) {
+      headerEl.classList.toggle('open');
+      const content = headerEl.nextElementSibling;
+      if (content) content.classList.toggle('open');
+    }
+
+    // Milestone handlers
+    window.updateMilestone = function(key, checked) {
+      if (!state.milestones[key]) state.milestones[key] = { done: false, date: '', note: '' };
+      state.milestones[key].done = checked;
+      state.milestones[key].date = checked ? todayISO() : '';
+      saveState();
+      renderPage(); // refresh
+    };
+
+    window.updateMilestoneNote = function(key, note) {
+      if (!state.milestones[key]) state.milestones[key] = { done: false, date: '', note: '' };
+      state.milestones[key].note = note;
+      saveState();
+    };
+
+    window.updateLabDone = function(week, checked) {
+      const key = getLabKey(week);
+      if (!state.labs[key]) state.labs[key] = { done: false, date: '', note: '' };
+      state.labs[key].done = checked;
+      state.labs[key].date = checked ? todayISO() : '';
+      saveState();
+      renderPage();
+    };
+
+    window.updateLabNote = function(week, note) {
+      const key = getLabKey(week);
+      if (!state.labs[key]) state.labs[key] = { done: false, date: '', note: '' };
+      state.labs[key].note = note;
+      saveState();
+    };
+
+    /* ============================================================
+       STUDY RECORDER
+       ============================================================ */
+
+    function renderRecorder() {
+      // Build course options from roadmap titles
+      const courseOptions = ROADMAP.map(w => `<option value="${w.title}">Week ${w.week}: ${w.title}</option>`).join('');
+
+      // Sort entries by date desc
+      const sorted = [...state.entries].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+
+      return `
+        <h1>Study Recorder</h1>
+        <p class="text-muted mb-2">Log your study sessions. Only recorded sessions count toward study hours.</p>
+
+        <div class="card">
+          <h3>New entry</h3>
+          <form id="studyForm" onsubmit="handleStudySubmit(event)">
+            <div class="form-row">
+              <div><label>Date *</label><input type="date" name="date" required value="${todayISO()}"></div>
+              <div><label>Week *</label>
+                <select name="week" required>
+                  ${ROADMAP.map(w => `<option value="${w.week}">Week ${w.week}</option>`).join('')}
+                </select>
+              </div>
+              <div><label>Course / track *</label>
+                <select name="course" required>
+                  <option value="">— Select —</option>
+                  ${courseOptions}
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div><label>Activity type *</label>
+                <select name="activity" required>
+                  <option value="video">Video</option>
+                  <option value="reading">Reading</option>
+                  <option value="practice">Practice</option>
+                  <option value="lab">Lab</option>
+                  <option value="review">Review</option>
+                </select>
+              </div>
+              <div><label>Duration (hours)</label><input type="number" name="hours" min="0" step="0.25" value="0"></div>
+              <div><label>Duration (minutes)</label><input type="number" name="minutes" min="0" max="59" step="5" value="0"></div>
+              <div><label>Energy (1–5)</label>
+                <select name="energy">
+                  <option value="1">1 — Very low</option>
+                  <option value="2">2 — Low</option>
+                  <option value="3" selected>3 — Medium</option>
+                  <option value="4">4 — High</option>
+                  <option value="5">5 — Very high</option>
+                </select>
+              </div>
+            </div>
+            <label>Topic studied *</label>
+            <input type="text" name="topic" required placeholder="e.g. OSI model layers, subnetting practice…">
+            <label>What I learned</label>
+            <textarea name="learned" placeholder="Key takeaways…"></textarea>
+            <label>Problems / difficulties</label>
+            <textarea name="problems" placeholder="What was hard?"></textarea>
+            <label>Next action</label>
+            <input type="text" name="next" placeholder="What will you do next?">
+            <button type="submit">Save entry</button>
+          </form>
+        </div>
+
+        <div class="card">
+          <div class="flex-between mb-1">
+            <h3>Study history</h3>
+            <span class="text-small text-muted">${sorted.length} entries</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Date</th><th>Week</th><th>Course</th><th>Activity</th><th>Duration</th><th>Topic</th><th></th></tr></thead>
+              <tbody>
+                ${sorted.length === 0 ? '<tr><td colspan="7" class="text-muted">No entries yet.</td></tr>' : ''}
+                ${sorted.map(e => `
+                  <tr>
+                    <td>${e.date || '—'}</td>
+                    <td>W${e.week || '—'}</td>
+                    <td>${escapeHtml(e.course || '—')}</td>
+                    <td>${e.activity || '—'}</td>
+                    <td>${(e.durationHours||0).toFixed(2)} h</td>
+                    <td>${escapeHtml(e.topic || '—')}</td>
+                    <td>
+                      <button class="icon-only small" onclick="deleteEntry('${e.id}')" title="Delete">🗑️</button>
+                    </td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+    }
+
+    window.handleStudySubmit = function(ev) {
+      ev.preventDefault();
+      const form = ev.target;
+      const fd = new FormData(form);
+
+      const hours = parseFloat(fd.get('hours')) || 0;
+      const minutes = parseInt(fd.get('minutes'), 10) || 0;
+      const durationHours = hours + minutes / 60;
+
+      const entry = {
+        id: 'e' + Date.now() + Math.random().toString(36).slice(2, 6),
+        date: fd.get('date'),
+        week: fd.get('week'),
+        course: fd.get('course'),
+        activity: fd.get('activity'),
+        durationHours: Math.round(durationHours * 100) / 100,
+        topic: fd.get('topic')?.trim() || '',
+        learned: fd.get('learned')?.trim() || '',
+        problems: fd.get('problems')?.trim() || '',
+        next: fd.get('next')?.trim() || '',
+        energy: parseInt(fd.get('energy'), 10) || 3
+      };
+
+      if (!entry.date || !entry.week || !entry.course || !entry.topic) {
+        alert('Please fill in all required fields (date, week, course, topic).');
+        return;
+      }
+
+      state.entries.push(entry);
+      saveState();
+      renderPage();
+    };
+
+    window.deleteEntry = function(id) {
+      if (!confirm('Delete this study entry?')) return;
+      state.entries = state.entries.filter(e => e.id !== id);
+      saveState();
+      renderPage();
+    };
+
+    /* ============================================================
+       LABS PAGE
+       ============================================================ */
+
+    function renderLabs() {
+      return `
+        <h1>Practical Labs</h1>
+        <p class="text-muted mb-2">Check off labs and attach evidence notes.</p>
+
+        ${ROADMAP.map(w => {
+          const key = getLabKey(w.week);
+          const lab = state.labs[key] || { done: false, date: '', note: '' };
+          return `
+            <div class="card">
+              <div class="flex-between">
+                <h3>Week ${w.week} — ${w.title}</h3>
+                <span class="badge ${lab.done ? 'badge-success' : ''}">${lab.done ? 'Completed' : 'Pending'}</span>
+              </div>
+              <p class="text-muted text-small">${w.lab}</p>
+              <div class="flex-start mt-1">
+                <input type="checkbox" id="labpage-${w.week}" ${lab.done ? 'checked' : ''}
+                  onchange="updateLabDone(${w.week}, this.checked)" style="width:18px;height:18px;accent-color:var(--accent);">
+                <label for="labpage-${w.week}" style="margin:0;font-size:0.9rem;color:var(--text);cursor:pointer;">Mark lab complete</label>
+                ${lab.done ? `<span class="text-small text-muted">(${formatDate(lab.date)})</span>` : ''}
+              </div>
+              <label class="mt-1">Lab documentation / evidence</label>
+              <textarea placeholder="Commands, screenshots description, errors, solutions…"
+                onchange="updateLabNote(${w.week}, this.value)">${escapeHtml(lab.note || '')}</textarea>
+            </div>
+          `;
+        }).join('')}
+      `;
+    }
+
+    /* ============================================================
+       NOTES PAGE
+       ============================================================ */
+
+    function renderNotes() {
+      const n = state.notes;
+      return `
+        <h1>Notes & Knowledge Journal</h1>
+        <p class="text-muted mb-2">Auto-saved as you type.</p>
+
+        <div class="card">
+          <h3>General notes</h3>
+          <textarea id="note-general" oninput="saveNote('general', this.value)" placeholder="General thoughts, resources…">${escapeHtml(n.general)}</textarea>
+        </div>
+
+        <div class="card">
+          <h3>Weekly notes</h3>
+          ${ROADMAP.map(w => `
+            <label>Week ${w.week} — ${w.title}</label>
+            <textarea id="note-w${w.week}" oninput="saveWeekNote(${w.week}, this.value)" placeholder="Notes for this week…">${escapeHtml(n.weeks['w'+w.week] || '')}</textarea>
+          `).join('')}
+        </div>
+
+        <div class="card">
+          <h3>Course-specific notes</h3>
+          ${ROADMAP.map(w => `
+            <label>${w.title}</label>
+            <textarea id="note-course-${w.week}" oninput="saveCourseNote('${w.title.replace(/'/g, "\\'")}', this.value)" placeholder="Course-specific notes…">${escapeHtml(n.courses[w.title] || '')}</textarea>
+          `).join('')}
+        </div>
+
+        <div class="card">
+          <h3>Lab documentation (general)</h3>
+          <textarea oninput="saveNote('labDocs', this.value)" placeholder="Overall lab documentation…">${escapeHtml(n.labDocs)}</textarea>
+        </div>
+
+        <div class="card">
+          <h3>Difficult concepts</h3>
+          <textarea oninput="saveNote('difficult', this.value)" placeholder="Concepts to revisit…">${escapeHtml(n.difficult)}</textarea>
+        </div>
+
+        <div class="card">
+          <h3>Questions to research later</h3>
+          <textarea oninput="saveNote('questions', this.value)" placeholder="Open questions…">${escapeHtml(n.questions)}</textarea>
+        </div>
+      `;
+    }
+
+    window.saveNote = function(field, value) {
+      state.notes[field] = value;
+      saveState();
+    };
+
+    window.saveWeekNote = function(week, value) {
+      if (!state.notes.weeks) state.notes.weeks = {};
+      state.notes.weeks['w' + week] = value;
+      saveState();
+    };
+
+    window.saveCourseNote = function(courseName, value) {
+      if (!state.notes.courses) state.notes.courses = {};
+      state.notes.courses[courseName] = value;
+      saveState();
+    };
+
+    /* ============================================================
+       BACKUP & REPORTS
+       ============================================================ */
+
+    function renderBackup() {
+      return `
+        <h1>Reports & Backup</h1>
+        <p class="text-muted mb-2">Export your data regularly. localStorage can be cleared by the browser.</p>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>Export JSON backup</h3>
+            <p class="text-small text-muted">Download all application data.</p>
+            <button onclick="exportJSON()">Download JSON</button>
+          </div>
+          <div class="card">
+            <h3>Export study history CSV</h3>
+            <p class="text-small text-muted">Download recorded study sessions.</p>
+            <button onclick="exportCSV()">Download CSV</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Import JSON backup</h3>
+          <p class="text-small text-muted">Restore from a previously exported JSON file. This will replace current data after validation.</p>
+          <input type="file" id="importFile" accept=".json,application/json">
+          <button class="mt-1" onclick="importJSON()">Import and replace</button>
+          <p id="importStatus" class="text-small mt-1"></p>
+        </div>
+
+        <div class="card">
+          <h3>Reset all progress</h3>
+          <p class="text-small text-muted">Permanently delete all entries, checkboxes, notes, and settings.</p>
+          <button class="danger" onclick="resetAll()">Reset everything</button>
+        </div>
+      `;
+    }
+
+    window.exportJSON = function() {
+      const data = JSON.stringify(state, null, 2);
+      const blob = new Blob([data], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'it-roadmap-backup-' + todayISO() + '.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    };
+
+    window.exportCSV = function() {
+      const headers = ['Date','Week','Course','Activity','DurationHours','Topic','Learned','Problems','Next','Energy'];
+      const rows = state.entries.map(e => [
+        e.date, e.week, e.course, e.activity, e.durationHours, e.topic, e.learned, e.problems, e.next, e.energy
+      ]);
+      let csv = headers.join(',') + '\n';
+      rows.forEach(r => {
+        csv += r.map(v => `"${String(v||'').replace(/"/g, '""')}"`).join(',') + '\n';
+      });
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'study-history-' + todayISO() + '.csv';
+      a.click();
+      URL.revokeObjectURL(url);
+    };
+
+    window.importJSON = function() {
+      const fileInput = document.getElementById('importFile');
+      const statusEl = document.getElementById('importStatus');
+      if (!fileInput.files.length) {
+        statusEl.textContent = 'Please select a JSON file first.';
+        return;
+      }
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+      reader.onload = function(ev) {
+        try {
+          const parsed = JSON.parse(ev.target.result);
+          // Basic validation
+          if (typeof parsed !== 'object' || parsed === null) throw new Error('Invalid JSON structure.');
+          if (!Array.isArray(parsed.entries) || typeof parsed.milestones !== 'object' || typeof parsed.labs !== 'object' || typeof parsed.notes !== 'object' || typeof parsed.settings !== 'object') {
+            throw new Error('Missing required data fields.');
+          }
+          if (!confirm('This will replace ALL current data. Continue?')) return;
+          state = {
+            entries: parsed.entries,
+            milestones: parsed.milestones,
+            labs: parsed.labs,
+            notes: {
+              general: parsed.notes.general || '',
+              weeks: parsed.notes.weeks || {},
+              courses: parsed.notes.courses || {},
+              labDocs: parsed.notes.labDocs || '',
+              difficult: parsed.notes.difficult || '',
+              questions: parsed.notes.questions || ''
+            },
+            settings: Object.assign(defaultState().settings, parsed.settings || {}),
+            version: 1
+          };
+          saveState();
+          statusEl.textContent = 'Import successful! Reloading…';
+          setTimeout(() => location.reload(), 500);
+        } catch (e) {
+          statusEl.textContent = 'Import failed: ' + e.message;
+        }
+      };
+      reader.readAsText(file);
+    };
+
+    window.resetAll = function() {
+      if (!confirm('This will permanently delete ALL progress, notes, and study entries. Are you sure?')) return;
+      if (!confirm('Final confirmation: reset everything?')) return;
+      state = defaultState();
+      saveState();
+      location.reload();
+    };
+
+    /* ============================================================
+       SETTINGS
+       ============================================================ */
+
+    function renderSettings() {
+      const s = state.settings;
+      return `
+        <h1>Settings</h1>
+        <p class="text-muted mb-2">All targets are optional guidance, not strict limits.</p>
+
+        <div class="card">
+          <h3>Planning</h3>
+          <label>Start date (optional)</label>
+          <input type="date" value="${s.startDate || ''}" onchange="updateSetting('startDate', this.value)">
+          <label>Daily study target (hours, optional)</label>
+          <input type="number" min="0" step="0.5" value="${s.dailyTarget || ''}" onchange="updateSetting('dailyTarget', this.value)">
+          <label>Weekly study target (hours, optional)</label>
+          <input type="number" min="0" step="0.5" value="${s.weeklyTarget || ''}" onchange="updateSetting('weeklyTarget', this.value)">
+          <label>Current active week (1–10)</label>
+          <select onchange="updateSetting('activeWeek', parseInt(this.value,10))">
+            ${ROADMAP.map(w => `<option value="${w.week}" ${s.activeWeek === w.week ? 'selected' : ''}>Week ${w.week} — ${w.title}</option>`).join('')}
+          </select>
+          <div class="flex-start mt-1">
+            <input type="checkbox" id="pauseChk" ${s.paused ? 'checked' : ''} onchange="updateSetting('paused', this.checked)" style="width:18px;height:18px;accent-color:var(--accent);">
+            <label for="pauseChk" style="margin:0;color:var(--text);">Pause roadmap (no overdue penalties)</label>
+          </div>
+          <div class="flex-start mt-1">
+            <input type="checkbox" id="extendChk" ${s.extended ? 'checked' : ''} onchange="updateSetting('extended', this.checked)" style="width:18px;height:18px;accent-color:var(--accent);">
+            <label for="extendChk" style="margin:0;color:var(--text);">Extended timeline (no fixed deadline)</label>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Data storage reminder</h3>
+          <p class="text-small text-muted">All data is saved in your browser's localStorage. Clearing browser data will erase your progress. Please export a JSON backup regularly.</p>
+        </div>
+      `;
+    }
+
+    window.updateSetting = function(key, value) {
+      state.settings[key] = value;
+      saveState();
+      // If activeWeek changed, re-render dashboard to reflect
+      if (key === 'activeWeek') renderPage();
+    };
+
+    /* ============================================================
+       BOOTSTRAP
+       ============================================================ */
+
+    window.addEventListener('DOMContentLoaded', function() {
+      loadState();
+      // Ensure all collapsibles start closed except maybe first week? Keep closed.
+      // We'll open week 1 by default for roadmap? Not necessary.
+      navigate('dashboard');
+    });
+
+    // Also handle browser back/forward if needed (not required)
+  </script>
+</body>
+</html>
